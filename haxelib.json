@@ -3,6 +3,7 @@
     "version": "0.1.0",
     "description": "Vosk bindings for Haxe",
     "license": "LGPL",
+    "classPath": ".",
     "releasenote": "initial release",
     "contributors": [
         "BulbyVR"

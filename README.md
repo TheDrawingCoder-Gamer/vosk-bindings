@@ -1,4 +1,3 @@
-# linc/empty
-An example empty project to start a linc library.
+# vosk-bindings
 
-For more information, see the [linc homepage](http://snowkit.github.io/linc/)
+tests require a vosk model in assets/model : )

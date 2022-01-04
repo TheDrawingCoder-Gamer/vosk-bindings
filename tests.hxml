@@ -1,0 +1,5 @@
+-p test
+-L vosk-bindings
+-L grig.audio
+--main Test
+--cpp bin

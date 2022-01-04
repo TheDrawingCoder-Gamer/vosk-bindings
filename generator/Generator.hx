@@ -8,7 +8,7 @@ class Generator {
     #if !cpp
     public static function main() {
         var kaldiFiles = recursiveReadDir("lib/kaldi/src");
-        var xmlFile = "<xml>\n\t<files id='kaldi'>\n\t\t<compilerflag value='-I${BINDINGS_VOSK_PATH}/lib/kaldi/src/'/>";
+        var xmlFile = "<xml>\n\t<files id='kaldi'>\n\t\t<compilerflag value='-I${haxelib:vosk-bindings}/lib/kaldi/src/'/>\n";
         for (file in kaldiFiles) {
             if (Path.extension(file) != "cc" && Path.extension(file) != "cpp") 
                 continue;
@@ -17,7 +17,7 @@ class Generator {
             xmlFile+= "\t\t<file name='" + fileName + "'/>\n";
         }
         xmlFile += "\t</files>\n";
-        xmlFile += "\t<files id='vosk'>\n\t\t<compilerflag value='-I${BINDINGS_VOSK_PATH}/lib/vosk/src/'/>\n";
+        xmlFile += "\t<files id='vosk'>\n\t\t<compilerflag value='-I${haxelib:vosk-bindings}/lib/vosk/src/'/>\n";
         var voskFiles = recursiveReadDir("lib/vosk-api/src");
         for (file in voskFiles) {
             if (Path.extension(file) != "cc" && Path.extension(file) != "cpp") 

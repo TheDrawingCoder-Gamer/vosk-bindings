@@ -46,8 +46,9 @@ extern class Recognizer {
 	@:native("vosk_recognizer_free")
 	static function free(recognizer:Recognizer):Void;
 }
+// TODO Fix include
 @:include('vosk_api.h')
-@:buildXml("<include name='${haxelib:vosk-bindings}/Build.xml'/>")
+@:buildXml("<import name='${haxelib:vosk-bindings}/Build.xml'/>")
 extern class Vosk {
 	@:native("vosk_model_new")
 	static function newModel(path:ConstCharStar):Model;

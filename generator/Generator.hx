@@ -13,8 +13,8 @@ class Generator {
             if (Path.extension(file) != "cc" && Path.extension(file) != "cpp") 
                 continue;
             // Remove the prefix
-            var fileName = file.replace("lib/kaldi/src/", "");
-            xmlFile+= "\t\t<file name='" + fileName + "'/>\n";
+            // var fileName = file.replace("lib/kaldi/src/", "");
+            xmlFile+= "\t\t<file name='" + file + "'/>\n";
         }
         xmlFile += "\t</files>\n";
         xmlFile += "\t<files id='vosk'>\n\t\t<compilerflag value='-I${haxelib:vosk-bindings}/lib/vosk/src/'/>\n";
@@ -23,8 +23,8 @@ class Generator {
             if (Path.extension(file) != "cc" && Path.extension(file) != "cpp") 
                 continue;
             // Remove the prefix
-            var fileName = file.replace("lib/vosk-api/src/", "");
-            xmlFile+= "\t\t<file name='" + fileName + "'/>\n";
+            // var fileName = file.replace("lib/vosk-api/src/", "");
+            xmlFile+= "\t\t<file name='" + file + "'/>\n";
         }
         xmlFile += "\t</files>\n</xml>";
         File.saveContent("Build.xml", xmlFile);

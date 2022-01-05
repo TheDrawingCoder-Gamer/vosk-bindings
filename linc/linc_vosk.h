@@ -1,3 +1,8 @@
+#pragma once
+
+#ifndef HXCPP_h
+#include <hxcpp.h>
+#endif 
 #include "../lib/vosk-api/src/vosk_api.h"
 
 namespace linc {

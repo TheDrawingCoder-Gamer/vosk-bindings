@@ -63,11 +63,11 @@ extern class Vosk {
 	@:native("linc::vosk::vosk_spk_model_new")
 	static function newSpkModel(model_path:String):SpkModel;
 	@:native("linc::vosk::vosk_recognizer_new")
-	static function newRecognizer(model:Model, sample_rate:Single):Recognizer;
+	static function newRecognizer(model:Model, sample_rate:cpp.Float32):Recognizer;
 	@:native("linc::vosk::vosk_recognizer_new_spk")
-	static function newRecognizerSpk(model:Model, sample_rate:Single, spk_model:SpkModel):Recognizer;
+	static function newRecognizerSpk(model:Model, sample_rate:cpp.Float32, spk_model:SpkModel):Recognizer;
 	@:native("linc::vosk::vosk_recognizer_new_grm")
-	static function newRecognizerGrm(model:Model, sample_rate:Single, grammar:String):Recognizer;
+	static function newRecognizerGrm(model:Model, sample_rate:cpp.Float32, grammar:String):Recognizer;
 
 	@:native("linc::vosk::vosk_set_log_level")
 	static function setLogLevel(log_level:Int):Void;

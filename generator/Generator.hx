@@ -14,7 +14,7 @@ class Generator {
                 continue;
             // Remove the prefix
             // var fileName = file.replace("lib/kaldi/src/", "");
-            xmlFile+= "\t\t<depend name='${haxelib:vosk-bindings}" + file + "'/>\n";
+            xmlFile+= "\t\t<depend name='${haxelib:vosk-bindings}/" + file + "'/>\n";
         }
         xmlFile += "\t</files>\n";
         xmlFile += "\t<files id='vosk'>\n";
@@ -24,11 +24,11 @@ class Generator {
                 continue;
             // Remove the prefix
             // var fileName = file.replace("lib/vosk-api/src/", "");
-            xmlFile+= "\t\t<depend name='${haxelib:vosk-bindings}" + file + "'/>\n";
+            xmlFile+= "\t\t<depend name='${haxelib:vosk-bindings}/" + file + "'/>\n";
         }
         xmlFile += "\t</files>";
         xmlFile += "\n</xml>";
-        File.saveContent("Build.xml", xmlFile);
+        File.saveContent("files.xml", xmlFile);
     }
     static function recursiveReadDir(dir:String) {
         var files = [];

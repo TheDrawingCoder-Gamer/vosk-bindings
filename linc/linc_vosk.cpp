@@ -1,6 +1,6 @@
 #include <hxcpp.h>
 #include "./linc_vosk.h"
-#include "../lib/vosk-api/src/vosk_api.h"
+
 
 namespace linc {
     namespace vosk {

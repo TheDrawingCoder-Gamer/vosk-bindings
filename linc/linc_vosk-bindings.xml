@@ -1,0 +1,28 @@
+<xml>
+	<include name="${LINC_VOSK-BINDINGS_PATH}files.xml"/>
+	<files id='haxe'>
+		<compilerflag value="-I${LINC_VOSK-BINDINGS_PATH}linc/"/>
+		<compilerflag value='-I${LINC_VOSK-BINDINGS_PATH}lib/kaldi/src/'/>
+		<compilerflag value='-I${LINC_VOSK-BINDINGS_PATH}lib/vosk/src/'/>
+
+		<file name="${LINC_VOSK-BINDINGS_PATH}linc/linc_vosk.cpp"/>
+	</files>
+
+	<files id="__lib__">
+		<compilerflag value="-I${LINC_VOSK-BINDINGS_PATH}linc/"/>
+		
+	</files>
+
+	<files id="__main__"> 
+		<compilerflag value="-I${LINC_VOSK-BINDINGS_PATH}linc/"/>
+		<compilerflag value='-I${LINC_VOSK-BINDINGS_PATH}lib/kaldi/src/'/>
+		<compilerflag value='-I${LINC_VOSK-BINDINGS_PATH}lib/vosk/src/'/>
+	</files>
+
+	<target id="haxe">
+		<files id="kaldi"/>
+		<files id="vosk"/>
+		
+
+	</target>
+</xml>

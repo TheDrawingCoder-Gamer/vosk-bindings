@@ -5,7 +5,7 @@ import vosk.Vosk;
 class Test {
     static var recognizer:vosk.Vosk.Recognizer;
     public static function main() {
-        var model = Vosk.newModel(cast "assets/model");
+        var model = Vosk.newModel("assets/model");
         var audioInterface = new grig.audio.AudioInterface();
         var ports = audioInterface.getPorts();
         var options:grig.audio.AudioInterfaceOptions = {};

@@ -1,9 +1,7 @@
 <xml>
-	<include name="${LINC_VOSK-BINDINGS_PATH}files.xml"/>
+	<!-- <include name="${LINC_VOSK-BINDINGS_PATH}files.xml"/> -->
 	<files id='haxe'>
 		<compilerflag value="-I${LINC_VOSK-BINDINGS_PATH}linc/"/>
-		<compilerflag value='-I${LINC_VOSK-BINDINGS_PATH}lib/kaldi/src/'/>
-		<compilerflag value='-I${LINC_VOSK-BINDINGS_PATH}lib/vosk/src/'/>
 
 		<file name="${LINC_VOSK-BINDINGS_PATH}linc/linc_vosk.cpp"/>
 	</files>
@@ -15,14 +13,19 @@
 
 	<files id="__main__"> 
 		<compilerflag value="-I${LINC_VOSK-BINDINGS_PATH}linc/"/>
-		<compilerflag value='-I${LINC_VOSK-BINDINGS_PATH}lib/kaldi/src/'/>
-		<compilerflag value='-I${LINC_VOSK-BINDINGS_PATH}lib/vosk/src/'/>
 	</files>
 
 	<target id="haxe">
-		<files id="kaldi"/>
-		<files id="vosk"/>
 		
-
+        <section if="windows">
+            <lib name='${LINC_VOSK-BINDINGS_PATH}lib/vosk/windows/64bit/libvosk.dll' if='HXCPP_M64' />
+            <lib name='${LINC_VOSK-BINDINGS_PATH}lib/vosk/windows/32bit/libvosk.dll' if='HXCPP_M32' />
+        </section>
+        <section if="linux">
+            <lib name='${LINC_VOSK-BINDINGS_PATH}lib/vosk/linux/x86_64/libvosk.so' if='HXCPP_M64' />
+        </section>
+        <section if="mac">
+            <!-- <lib name='${LINC_VOSK-BINDINGS_PATH}lib/vosk/lib/mac/64bit/libvosk.a' if='HXCPP_M64' /> -->
+        </section>
 	</target>
 </xml>

@@ -54,7 +54,6 @@ extern class Recognizer {
 	@:native("linc::vosk::vosk_recognizer_free")
 	static function free(recognizer:Recognizer):Void;
 }
-// TODO Fix include
 @:include('linc_vosk.h')
 @:keep
 extern class Vosk {

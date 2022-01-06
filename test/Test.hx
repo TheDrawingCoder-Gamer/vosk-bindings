@@ -7,8 +7,8 @@ class Test {
     public static function main() {
         
         var model = Vosk.newModel("assets/model");
-        var recognizer = Vosk.newRecognizer(model, cast (6000, cpp.Float32));
-        /*
+        // var recognizer = Vosk.newRecognizer(model, cast (6000, cpp.Float32));
+        
         var audioInterface = new grig.audio.AudioInterface();
         var ports = audioInterface.getPorts();
         var options:grig.audio.AudioInterfaceOptions = {};
@@ -25,8 +25,9 @@ class Test {
                 options.inputLatency = port.defaultLowInputLatency;
             }
         }
-        recognizer = Vosk.newRecognizer(model, cast (options.sampleRate, cpp.Float32));
-        audioInterface.setCallback(audioCallback);
+        var recognizer = Vosk.newRecognizer(model, cast (options.sampleRate, cpp.Float32));
+        // Static vars are scuffed
+        audioInterface.setCallback(audioCallback.bind(recognizer));
         audioInterface.openPort(options).handle(function (audioOutcome) {
             switch audioOutcome {
                 case Success(data):
@@ -36,9 +37,9 @@ class Test {
                     return;
             }
         });
-        */
+        
     }
-    static function audioCallback(input:grig.audio.AudioBuffer, output:grig.audio.AudioBuffer, sampleRate:Float, streamInfo:grig.audio.AudioStreamInfo) {
+    static function audioCallback(recognizer:Recognizer, input:grig.audio.AudioBuffer, output:grig.audio.AudioBuffer, sampleRate:Float, streamInfo:grig.audio.AudioStreamInfo) {
         var channel = input.channels[0];
         // TODO: How is data read? 
         trace(channel.length);

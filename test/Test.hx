@@ -44,24 +44,28 @@ class Test {
         
     }
     static function mainLoop(audioInterface:grig.audio.AudioInterface) {
-        if (Sys.getChar(false) == 4) {
-            audioInterface.closePort();
-            return;
+        while (true) {
+            if (Sys.getChar(false) == 4) {
+                audioInterface.closePort();
+                return;
+            }
         }
+        
     }
     static function audioCallback(input:grig.audio.AudioBuffer, output:grig.audio.AudioBuffer, sampleRate:Float, streamInfo:grig.audio.AudioStreamInfo) {
         var channel = input.channels[0];
         // TODO: How is data read? 
         // Cast Type params must be dynamic.... cursed
-        var pointer = cpp.Pointer.ofArray(cast (channel , haxe.ds.Vector<Dynamic>).toArray()).constRaw;
+        var pointer = cpp.Pointer.ofArray(cast (channel , haxe.ds.Vector<Dynamic>).toArray());
         // if final
         trace('hello');
-        if (recognizer.acceptWaveformF(pointer, channel.length) != 0) {
+        if (recognizer.acceptWaveformF(pointer.constRaw, channel.length) != 0) {
             Sys.println(recognizer.result());
         }  else {
             Sys.println(recognizer.partialResult());
         }
-       
+        trace('goodbye');
+       pointer.destroy();
     }
     
 }

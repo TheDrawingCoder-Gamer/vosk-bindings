@@ -10,7 +10,7 @@ import cpp.ConstCharStar;
 #end
 private extern class Vosk_linc { private inline static var LINC = 1; }
 @:using(Vosk.Model)
-@:native("VoskModel *")
+@:native("::cpp::Reference<VoskModel>")
 @:include('linc_vosk.h')
 extern class Model {
 	@:native("linc::vosk::vosk_model_find_word")
@@ -20,7 +20,7 @@ extern class Model {
 }
 
 @:using(Vosk.SpkModel)
-@:native("VoskSpkModel *")
+@:native("::cpp::Reference<VoskSpkModel>")
 @:include('linc_vosk.h')
 @:keep
 extern class SpkModel {
@@ -29,7 +29,7 @@ extern class SpkModel {
 }
 
 @:using(Vosk.Recognizer)
-@:native("VoskRecognizer *")
+@:native("::cpp::Reference<VoskRecognizer>")
 @:include('linc_vosk.h')
 @:keep
 extern class Recognizer {

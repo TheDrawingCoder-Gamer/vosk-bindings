@@ -1,13 +1,15 @@
 package;
 
+import cpp.RawConstPointer;
+import cpp.ConstPointer;
 import vosk.Vosk;
 
 class Test {
-    // static var recognizer:vosk.Vosk.Recognizer;
+    static var recognizer:vosk.Vosk.Recognizer;
     public static function main() {
         
         var model = Vosk.newModel("assets/model");
-        // var recognizer = Vosk.newRecognizer(model, cast (6000, cpp.Float32));
+        //recognizer = Vosk.newRecognizer(model, cast (6000, cpp.Float32));
         
         var audioInterface = new grig.audio.AudioInterface();
         var ports = audioInterface.getPorts();
@@ -25,23 +27,41 @@ class Test {
                 options.inputLatency = port.defaultLowInputLatency;
             }
         }
-        var recognizer = Vosk.newRecognizer(model, cast (options.sampleRate, cpp.Float32));
-        // Static vars are scuffed
-        audioInterface.setCallback(audioCallback.bind(recognizer));
+        trace(options);
+        recognizer = Vosk.newRecognizer(model, cast (options.sampleRate, cpp.Float32));
+        audioInterface.setCallback(audioCallback);
         audioInterface.openPort(options).handle(function (audioOutcome) {
             switch audioOutcome {
                 case Success(data):
-
+                    mainLoop(data);
                 case Failure(failure):
                     trace(failure);
-                    return;
+                    Sys.exit(1);
+                    
             }
         });
         
+        
     }
-    static function audioCallback(recognizer:Recognizer, input:grig.audio.AudioBuffer, output:grig.audio.AudioBuffer, sampleRate:Float, streamInfo:grig.audio.AudioStreamInfo) {
+    static function mainLoop(audioInterface:grig.audio.AudioInterface) {
+        if (Sys.getChar(false) == 4) {
+            audioInterface.closePort();
+            return;
+        }
+    }
+    static function audioCallback(input:grig.audio.AudioBuffer, output:grig.audio.AudioBuffer, sampleRate:Float, streamInfo:grig.audio.AudioStreamInfo) {
         var channel = input.channels[0];
         // TODO: How is data read? 
-        trace(channel.length);
+        // Cast Type params must be dynamic.... cursed
+        var pointer = cpp.Pointer.ofArray(cast (channel , haxe.ds.Vector<Dynamic>).toArray()).constRaw;
+        // if final
+        trace('hello');
+        if (recognizer.acceptWaveformF(pointer, channel.length) != 0) {
+            Sys.println(recognizer.result());
+        }  else {
+            Sys.println(recognizer.partialResult());
+        }
+       
     }
+    
 }

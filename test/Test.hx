@@ -1,16 +1,17 @@
 package;
 
+import cpp.Pointer;
 import cpp.RawConstPointer;
 import cpp.ConstPointer;
 import vosk.Vosk;
 
 class Test {
     static var recognizer:vosk.Vosk.Recognizer;
+    static var model:vosk.Vosk.Model;
     public static function main() {
         
-        var model = Vosk.newModel("assets/model");
+        model = Vosk.newModel("assets/model");
         //recognizer = Vosk.newRecognizer(model, cast (6000, cpp.Float32));
-        
         var audioInterface = new grig.audio.AudioInterface();
         var ports = audioInterface.getPorts();
         var options:grig.audio.AudioInterfaceOptions = {};
@@ -29,6 +30,8 @@ class Test {
         }
         trace(options);
         recognizer = Vosk.newRecognizer(model, cast (options.sampleRate, cpp.Float32));
+        // recognizer.setMaxAlternatives(0);
+        // recognizer.setWords(1);
         audioInterface.setCallback(audioCallback);
         audioInterface.openPort(options).handle(function (audioOutcome) {
             switch audioOutcome {
@@ -53,19 +56,22 @@ class Test {
         
     }
     static function audioCallback(input:grig.audio.AudioBuffer, output:grig.audio.AudioBuffer, sampleRate:Float, streamInfo:grig.audio.AudioStreamInfo) {
-        var channel = input.channels[0];
-        // TODO: How is data read? 
+        var channel:haxe.ds.Vector<cpp.Float32> = cast input.channels[0];
+
         // Cast Type params must be dynamic.... cursed
-        var pointer = cpp.Pointer.ofArray(cast (channel , haxe.ds.Vector<Dynamic>).toArray());
+        var channelAsArray:Array<cpp.Float32> = channel.toArray();
+        var pointer:cpp.Pointer<cpp.Float32> = cpp.Pointer.ofArray(channelAsArray);
         // if final
-        trace('hello');
-        if (recognizer.acceptWaveformF(pointer.constRaw, channel.length) != 0) {
+        // trace('hello');
+        var isFinal = recognizer.acceptWaveformF(pointer.constRaw, channel.length);
+        if (isFinal != 0) {
+            trace(isFinal);
             Sys.println(recognizer.result());
         }  else {
-            Sys.println(recognizer.partialResult());
+            // Sys.println(recognizer.partialResult());
         }
-        trace('goodbye');
-       pointer.destroy();
+
+       
     }
     
 }

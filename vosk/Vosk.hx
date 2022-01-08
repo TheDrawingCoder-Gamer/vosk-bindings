@@ -36,15 +36,15 @@ extern class Recognizer {
 	@:native("linc::vosk::vosk_recognizer_set_spk_model")
 	static function setSpkModel(recognizer:Recognizer, spk_model:SpkModel):Void;
 	@:native("linc::vosk::vosk_recognizer_set_max_alternatives")
-	static function setMaxAlternatives(recognizer:Recognizer, max_alternatives:Int):Void;
+	static function setMaxAlternatives(recognizer:Recognizer, max_alternatives:cpp.Int32):Void;
 	@:native("linc::vosk::vosk_recognizer_set_words")
-	static function setWords(recognizer:Recognizer, words:Int):Void;
+	static function setWords(recognizer:Recognizer, words:cpp.Int32):Void;
 	@:native("linc::vosk::vosk_recognizer_waveform")
-	static function acceptWaveform(recognizer:Recognizer, data:ConstCharStar, length:Int):Int;
+	static function acceptWaveform(recognizer:Recognizer, data:ConstCharStar, length:cpp.Int32):cpp.Int32;
 	@:native("linc::vosk::vosk_recognizer_waveform_s")
-	static function acceptWaveformS(recognizer:Recognizer, data:RawConstPointer<cpp.Int16>, length:Int):Int;
+	static function acceptWaveformS(recognizer:Recognizer, data:RawConstPointer<cpp.Int16>, length:cpp.Int32):cpp.Int32;
 	@:native("linc::vosk::vosk_recognizer_accept_waveform_f")
-	static function acceptWaveformF(recognizer:Recognizer, data:RawConstPointer<cpp.Float32>, length:Int):Int;
+	static function acceptWaveformF(recognizer:Recognizer, data:RawConstPointer<cpp.Float32>, length:cpp.Int32):cpp.Int32;
 	@:native("linc::vosk::vosk_recognizer_result")
 	static function result(recognizer:Recognizer):String;
 	@:native("linc::vosk::vosk_recognizer_partial_result")
@@ -69,7 +69,7 @@ extern class Vosk {
 	static function newRecognizerGrm(model:Model, sample_rate:cpp.Float32, grammar:String):Recognizer;
 
 	@:native("linc::vosk::vosk_set_log_level")
-	static function setLogLevel(log_level:Int):Void;
+	static function setLogLevel(log_level:cpp.Int32):Void;
 
 	@:native("linc::vosk::vosk_gpu_init")
 	static function initGpu():Void;
